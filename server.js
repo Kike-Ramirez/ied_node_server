@@ -4,7 +4,7 @@ const express = require('express');
 const { Server } = require('ws');
 
 const PORT = process.env.PORT || 3000;
-const INDEX = '/index2.html';
+const INDEX = '/index.html';
 
 const server = express()
     .use(express.static('public'))

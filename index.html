@@ -1,5 +1,7 @@
+<!DOCTYPE html>
 <html>
-  <head>
+	<head>
+		<title>IED - Websockets Basic Example</title>
     <script>
       let HOST = location.origin.replace(/^http/, 'ws')
       let ws = new WebSocket(HOST);
@@ -10,11 +12,31 @@
         el.innerHTML = 'Server time: ' + event.data;
       };
     </script>
-  </head>
-  <body>
-    <h1>IED Node Server</h1>
+    <style>
+      body{
+        background-color: #000000;
+        text-align:center;
+      }
+      
+      h1{
+        background-color: #ffffff;
+      }
+      
+      p{
+        font-size: 18px;
+        color: white;
+      }
+      
+      canvas{
+        border: thin solid white;
+      }
+    </style>
+	</head>
+	<body>
+    <h1>IED - Websockets basic example</h1>
     <p>
     <p>
     <p id="server-time"></p>
-  </body>
+	</body>
 </html>
+
