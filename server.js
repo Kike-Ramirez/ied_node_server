@@ -6,6 +6,8 @@ const { Server } = require('ws');
 const PORT = process.env.PORT || 5000;
 const INDEX = '/index2.html';
 
+console.log(PORT);
+
 const server = express()
     .use(express.static('public'))
     .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
