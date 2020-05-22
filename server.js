@@ -3,18 +3,20 @@
 const express = require('express');
 const { Server } = require('ws');
 
-const PORT = process.env.PORT || 3000;
-const INDEX = '/index.html';
+const PORT = process.env.PORT || 5000;
+const INDEX = '/index2.html';
 
 const server = express()
     .use(express.static('public'))
     .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
-    .listen(PORT, () => console.log(`Listening on ${PORT}`));
+    .listen(PORT, () => console.log(`Hello!: Listening on ${PORT}`));
 
 const wss = new Server({ server });
 
 wss.on('connection', (ws) => {
-    console.log('Client connected');
+    
+    console.log('Hello! Client connected');
+
     ws.on('message', function incoming(data) {
         wss.clients.forEach(function each(client) {
             client.send(data);
@@ -22,11 +24,12 @@ wss.on('connection', (ws) => {
     });
 
 
-    ws.on('close', () => console.log('Client disconnected'));
+    ws.on('close', () => console.log(' Hello! Client disconnected'));
 });
 
 setInterval(() => {
     wss.clients.forEach((client) => {
-        client.send(new Date().toTimeString());
+        //client.send(new Date().toTimeString());
+        client.send("Hello");
     });
 }, 1000);
