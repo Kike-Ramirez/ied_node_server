@@ -7,9 +7,9 @@ function setup() {
 }
 
 function draw() {
-    let c = color('#0f0');
+    let c = color('#f00');
 
     background(255);
     fill(c);
-    ellipse(mouseX, mouseY, 25, 25);
+    rect(mouseX, mouseY, 50, 50);
 }
