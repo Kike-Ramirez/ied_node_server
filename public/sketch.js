@@ -4,19 +4,29 @@ let el;
 
 let x;
 let y;
+let col;
 
 ws.onmessage = (event) => {
     var res = event.data.split(" ");
     
     if (res.length > 1) {
-        x = parseFloat(res[1]);
-        y = parseFloat(res[3]);
+        if (res[0] === 'X:') {
+            x = parseFloat(res[1]);
+            y = parseFloat(res[3]);
+        }
+
+        if (res[0] === "Color:") {
+            console.log("Color");
+            col = color(parseFloat(res[1]), parseFloat(res[2]), parseFloat(res[3]));
+        }
+
     }
 };
 
 function setup() {
     
     var canvas = createCanvas(1280, 720);
+    col = color(0, 0, 0);
     
     x = 0.5 * width;
     y = 0.5 * height;
@@ -26,11 +36,9 @@ function setup() {
 }
 
 function draw() {
-    let c = color('#f00');
-    console.log(x);
 
     background(255);
-    fill(c);
+    fill(col);
     rect(x, y, 50, 50);
 }
 
