@@ -5,6 +5,29 @@ let el;
 let x;
 let y;
 let col;
+let alpha, beta, gamma;
+
+window.addEventListener("deviceorientation", handleOrientation, true);
+
+function handleOrientation(event) {
+    
+    alpha    = event.alpha;
+    beta     = event.beta;
+    gamma    = event.gamma;
+  
+    console.log(alpha + " " + beta + " " + gamma);
+
+    el_alpha = document.getElementById("alpha");
+    el_alpha.innerHTML = alpha;
+
+    el_beta = document.getElementById("beta");
+    el_beta.innerHTML = beta;
+
+    el_gamma = document.getElementById("gamma");
+    el_gamma.innerHTML = gamma;
+
+    // Do stuff with the new orientation data
+}
 
 ws.onmessage = (event) => {
     var res = event.data.split(" ");
@@ -33,6 +56,10 @@ function setup() {
 
     canvas.parent('sketch-div');
     background(32);
+
+    alpha = 0;
+    beta = 0;
+    gamma = 0;
 }
 
 function draw() {
