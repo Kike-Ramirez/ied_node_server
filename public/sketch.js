@@ -5,29 +5,7 @@ let el;
 let x;
 let y;
 let col;
-let alpha, beta, gamma;
-
-window.addEventListener("deviceorientation", handleOrientation, true);
-
-function handleOrientation(event) {
-    
-    alpha    = event.alpha;
-    beta     = event.beta;
-    gamma    = event.gamma;
-  
-    console.log(alpha + " " + beta + " " + gamma);
-
-    el_alpha = document.getElementById("alpha");
-    el_alpha.innerHTML = alpha;
-
-    el_beta = document.getElementById("beta");
-    el_beta.innerHTML = beta;
-
-    el_gamma = document.getElementById("gamma");
-    el_gamma.innerHTML = gamma;
-
-    // Do stuff with the new orientation data
-}
+let lightStatus;
 
 ws.onmessage = (event) => {
     var res = event.data.split(" ");
@@ -56,26 +34,43 @@ function setup() {
 
     canvas.parent('sketch-div');
     background(32);
+    textAlign(CENTER, CENTER);
+    textSize(48);
+    lightStatus = 1;
 
-    alpha = 0;
-    beta = 0;
-    gamma = 0;
 }
 
 function draw() {
 
     background(255);
-    fill(col);
-    rect(x, y, 50, 50);
+    fill(255, 0, 0);
+    rect(0, 0, 0.5 * width, height);
+    fill(255);
+    text("OFF", 0.25 * width, 0.5 * height);
+    fill(0, 255, 0);
+    rect(0.5 * width, 0, 0.5 * width, height);
+    fill(255);
+    text("ON", 0.75 * width, 0.5 * height);
+
+    noFill();
+    stroke(255);
+    strokeWeight(5);
+    if (lightStatus == 0) ellipse( 0.25 * width, 0.5 * height, 200, 200);
+    if (lightStatus == 1) ellipse( 0.75 * width, 0.5 * height, 200, 200);
+
 }
 
-function mouseMoved() {
+function mouseClicked() {
 
-    x = mouseX;
-    y = mouseY;
+    if (mouseX < 0.5 * width) {
+        ws.send("0");
+        lightStatus = 0;
+        console.log("OFF");
+    }
 
-    let message = "X: " + x + " Y: " + y;
-    console.log(message);
-    ws.send(message);
-
+    else {
+        lightStatus = 1;
+        ws.send("1");
+        console.log("ON");
+    }
 }
